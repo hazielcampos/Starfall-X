@@ -1,12 +1,12 @@
 import cv2
 
-def listar_camaras(max_index=10):
-    disponibles = []
+def list_cameras(max_index=10):
+    available = []
     for i in range(max_index):
         cap = cv2.VideoCapture(i)
         if cap.isOpened():
-            disponibles.append(i)
+            available.append(i)
             cap.release()
-    return disponibles
+    return available
 
-print("Cámaras disponibles:", listar_camaras(10))
+print("Available cameras:", list_cameras(10))

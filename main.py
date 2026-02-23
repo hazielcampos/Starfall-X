@@ -6,10 +6,10 @@ from utils.Logger import Logger
 
 colorInt(autoreset=True)
 
-from vision.camera import CameraNode
-from comm.serial_node import CommNode
-from control.driver_logic import ControlNode
-from web.server import WebNode
+from nodes.vision.camera import CameraNode
+from nodes.comm.serial_node import CommNode
+from nodes.control.driver_logic import ControlNode
+from nodes.web.server import WebNode
 
 if __name__ == "__main__":
     log = Logger("MAIN", Fore.WHITE)
