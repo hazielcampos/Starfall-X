@@ -1,0 +1,6 @@
+flask
+opencv-python
+simple-pid
+pyserial
+pyyaml
+colorama
