@@ -4,3 +4,4 @@ simple-pid
 pyserial
 pyyaml
 colorama
+picamera2

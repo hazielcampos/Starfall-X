@@ -5,7 +5,7 @@ import random
 from utils.Logger import Logger
 from colorama import Fore
 
-def ControlNode(messages_queue: Queue, stop_event):
+def ControlNode(messages_queue: Queue, data_queue: Queue, stop_event):
     log = Logger("CONTROL", Fore.BLUE)
     try:
         while not stop_event.is_set():
@@ -13,6 +13,24 @@ def ControlNode(messages_queue: Queue, stop_event):
             info, error = send_command(messages_queue, 0, angle)
             if error:
                 log.Error(f"Error sending command: {error}")
+
+            data_queue.put({
+                "type": "telemetry",
+                "name": "servo_pos",
+                "value": angle
+            })
+
+            data_queue.put({
+                "type": "telemetry",
+                "name": "battery",
+                "value": 12
+            })
+
+            data_queue.put({
+                "type": "telemetry",
+                "name": "status",
+                "value": "Idle"
+            })
             time.sleep(5)
     except KeyboardInterrupt:
         pass

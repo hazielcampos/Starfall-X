@@ -17,16 +17,16 @@ if __name__ == "__main__":
     time.sleep(0.3)
 
     log.Info("Starting system...")
-    frame_queue = Queue(maxsize=1)
+    data_queue = Queue(maxsize=10)
     state_queue = Queue(maxsize=1)
     messages_queue = Queue(maxsize=20)
     stop_event = Event()
 
     nodes = {
-        "camera": Process(target=CameraNode, args=(frame_queue, state_queue, stop_event)),
+        "camera": Process(target=CameraNode, args=(data_queue, state_queue, stop_event)),
         "comm": Process(target=CommNode, args=(messages_queue, stop_event)),
-        "control": Process(target=ControlNode, args=(messages_queue, stop_event)),
-        "web": Process(target=WebNode, args=(frame_queue, stop_event)),
+        "control": Process(target=ControlNode, args=(messages_queue, data_queue, stop_event)),
+        "web": Process(target=WebNode, args=(data_queue, stop_event)),
     }
 
     for name, node in nodes.items():
